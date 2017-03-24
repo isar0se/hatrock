@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {setCommand} from '../reducers/command'
 import {Link} from 'react-router'
 import SliderComponent from 'APP/app/components/SliderComponent'
+import SortableQueue from 'APP/app/components/SortableQueue'
 
 
 // from state: liveEffect
