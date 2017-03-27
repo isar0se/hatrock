@@ -32,6 +32,7 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         dispatch(authenticated(user))
-      }).catch(failed => dispatch(authenticated(null)))
+      })
+      .catch(failed => dispatch(authenticated(null)))
 
 export default reducer

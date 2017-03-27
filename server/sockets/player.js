@@ -35,14 +35,5 @@ module.exports = function(io) {
     playerSocket.on('clearVideos', () => {
       playerSocket.broadcast.emit('clearOutputVideos')
     })
-    
-    playerSocket.on('sendCueTimeToOutputLeft', cueTime => {
-      // console.log('gettin cue time ?Q?A??Q', cueTime)
-      playerSocket.broadcast.emit('seekToLeft', cueTime)
-    })
-    
-    playerSocket.on('sendCueTimeToOutputRight', cueTime => {
-      playerSocket.broadcast.emit('seekToRight', cueTime)
-    })
   })
 }

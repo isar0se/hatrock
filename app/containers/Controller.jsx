@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {setCommand} from '../reducers/command'
 import {Link} from 'react-router'
 import SliderComponent from 'APP/app/components/SliderComponent'
+import SortableQueue from 'APP/app/components/SortableQueue'
 
 
 // from state: liveEffect
@@ -24,7 +25,7 @@ class Controller extends Component {
 
   componentDidMount() {
     socket.on('connect', () => {
-      // console.log("~~~Getting the socket to work in this component!~~~~~")
+      console.log("~~~Getting the socket to work in this component!~~~~~")
 
       //sends commandtype to mobile
       socket.on('getCommandType', () => {
@@ -94,7 +95,9 @@ class Controller extends Component {
         <button onClick={this.handleTapButton}>Tap</button>
         <button onClick={this.handleSliderButton}>Slider</button>
         <button onClick={this.handleClearButton}>Clear</button>
-        <SliderComponent className='lol' handleChange={this.handleOpacitySlider}/>
+        <div>
+          <SliderComponent handleChange={this.handleOpacitySlider}/>
+        </div>
   </div>
     )
   }

@@ -9,7 +9,7 @@ const auth = require('express').Router()
 
 /*************************
  * Auth strategies
- *
+ * 
  * The OAuth model knows how to configure Passport middleware.
  * To enable an auth strategy, ensure that the appropriate
  * environment variables are set.
@@ -133,18 +133,6 @@ passport.use(new (require('passport-local').Strategy) (
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
-auth.get('/users/:userId', (req, res, next) => {
-  OAuth.findOne({
-    where: {
-      user_id: req.params.userId
-    }
-  })
-  .then(userAuth => {
-    res.json(userAuth)
-  })
-  .catch(next)
-})
-
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', { successRedirect: '/', }))
 
@@ -152,7 +140,7 @@ auth.post('/login/local', passport.authenticate('local', { successRedirect: '/',
 // Register this route as a callback URL with OAuth provider
 auth.get('/login/:strategy', (req, res, next) =>
   passport.authenticate(req.params.strategy, {
-    scope: ['email', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/youtubepartner'], // 'https://www.googleapis.com/auth/youtube.readonly'
+    scope: ['email'], // 'https://www.googleapis.com/auth/youtube.readonly'
     successRedirect: '/',
     // Specify other config here, such as "scope"
   })(req, res, next)
@@ -164,3 +152,4 @@ auth.post('/logout', (req, res, next) => {
 })
 
 module.exports = auth
+

@@ -3,14 +3,14 @@ import {Menu, Button} from 'semantic-ui-react'
 import YouTubeSearch from 'APP/app/containers/YouTubeSearch'
 import store from 'APP/app/store'
 import LoginLogout from 'APP/app/containers/LoginLogout'
-import {addToQueue, fetchQueue, clearQueue} from 'APP/app/reducers/queue'
+import {addToQueue, fetchQueue, clearQueue} from 'APP/app/utils/queue'
 
 var socket = io(window.location.origin)
 
 export const Navbar = () => {
-
-
-
+  
+  
+  
   return (
     <Menu widths={3}>
       <Menu.Item>
@@ -25,7 +25,7 @@ export const Navbar = () => {
         }}>save set</Button>
       </Menu.Item>
       <Menu.Item>
-        <YouTubeSearch
+        <YouTubeSearch 
           apiKey='AIzaSyBOr-nJwESPXBlOSh-4-bf2R-ayOTUFVt4' // how to use .env on the front-end
           maxResults='5'
           placeHolder='<- search'
@@ -38,7 +38,6 @@ export const Navbar = () => {
           maxResults='5'
           placeHolder='search ->'
           callback={results => {
-            // console.log(results[0])
             store.dispatch(addToQueue(results[0], 'queueRight'))
           }}
         />

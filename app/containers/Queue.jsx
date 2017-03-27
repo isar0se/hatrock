@@ -7,13 +7,13 @@ class Queue extends Component {
     super(props)
     this.renderQueue = this.renderQueue.bind(this)
   }
-
+  
   renderQueue() {
     const queue = this.props.queue
     if (queue.length) {
       console.log('rendering queue: ', queue)
       return (
-        queue.map((queueItem, idx) =>
+        queue.map((queueItem, idx) => 
           <Menu.Item
             key={idx}
             name={queueItem.snippet.title}
@@ -22,7 +22,7 @@ class Queue extends Component {
       )
     }
   }
-
+  
   render() {
     const queue = this.props.queue
     return (
@@ -38,7 +38,7 @@ class Queue extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({queue: state.queue[`${ownProps.direction}`]
+const mapStateToProps = (state, ownProps) => ({queue: state[`queue${ownProps.direction}`]
 })
 
 export default connect(mapStateToProps)(Queue)
