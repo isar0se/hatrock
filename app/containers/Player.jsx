@@ -71,10 +71,10 @@ class Player extends Component {
     // videoId, title, thumbnailUrl, direction
     let video = this.state[`video${this.props.direction}`],
       setItem = {
-        direction: this.props.direction,
-        videoId: this.props.queue[0].id.videoId,
-        title: this.props.queue[0].snippet.title,
-        thumbnailUrl: this.props.queue[0].snippet.thumbnails.default.url
+        "direction": this.props.direction,
+        "videoId": this.props.queue[0].id.videoId,
+        "title": this.props.queue[0].snippet.title,
+        "thumbnailUrl": this.props.queue[0].snippet.thumbnails.default.url
       }
     console.log(this.state)
     console.log('SET ITEM: ', setItem)

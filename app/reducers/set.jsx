@@ -42,7 +42,11 @@ export const addToSet = setItem => dispatch => {
   dispatch(receiveSet(setToUpdate))
 }
 
-export const saveSetToDb = (/*title?userId?*/) => dispatch => {
+export const saveSetToDb = (set) => dispatch => {
+  console.log("Getting the set!", set)
+  axios.post('/api/sets', set)
+    .then(() => {console.log("Saved set and everything's working!")})
+    .catch(console.error)
   // axios stuff:
   // when do we want todo this ? do we want users to be able to update their sets in the database ? or does saving a set to the database reset the set in localStorage ?
 }

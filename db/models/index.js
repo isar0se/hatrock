@@ -7,6 +7,10 @@
 const User = require('./user')
 const OAuth = require('./oauth')
 const Set = require('./set')
+const Video = require('./video')
+
+Video.belongsTo(Set)
+Set.hasMany(Video)
 
 Set.belongsTo(User)
 User.hasMany(Set)

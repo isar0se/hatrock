@@ -7,8 +7,7 @@ const db = require('APP/db')
 
 const Set = db.define('sets', {
   name: Sequelize.STRING,
-  leftPlaylist: Sequelize.ARRAY(Sequelize.STRING),
-  rightPlaylist: Sequelize.ARRAY(Sequelize.STRING)
+  description: Sequelize.STRING
 })
 
 module.exports = Set

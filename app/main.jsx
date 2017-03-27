@@ -12,6 +12,8 @@ import LiveApp from './containers/LiveApp'
 import EffectScreen from './containers/EffectScreen'
 import Controller from './containers/Controller'
 
+import SaveSet from 'APP/app/components/SaveSet'
+
 const socket = io(window.location.origin)
 
 socket.on('connect', () => {
@@ -34,14 +36,15 @@ const onRootEnter = () => {
 }
 
 render (
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Root} onEnter={onRootEnter} />
-      <Route path="/effects" component={EffectScreen} />
-      <Route path="/output" component={Output} onEnter={onRootEnter} />
-      <Route path="/live" component={LiveApp} />
-      <Route path="/controller" component={Controller}/>
-    </Router>
-  </Provider>,
-  document.getElementById('main')
+	<Provider store={store}>
+		<Router history={browserHistory}>
+			<Route path="/" component={Root} onEnter={onRootEnter} />
+			<Route path="/effects" component={EffectScreen} />
+			<Route path="/output" component={Output} />
+			<Route path="/live" component={LiveApp} />
+			<Route path="/controller" component={Controller}/>
+			<Route path="/set" component={SaveSet}/>
+		</Router>
+	</Provider>,
+	document.getElementById('main')
 )

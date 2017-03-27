@@ -27,7 +27,7 @@ export default class TapComponent extends Component {
   render() {
     return (
       <div className="mobileComponent">
-        <Button basic circular className="tapButton" size="massive" onClick={this.handleTouchStart}
+        <Button basic circular className="tapButton" size="massive" onTouchStart={this.handleTouchStart}
           color={this.state.color}>
           T A P
         </Button>
