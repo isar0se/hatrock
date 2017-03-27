@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Dimmer, Image, Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
-export default class SortableQueueItem extends Component {
+class SortableQueueItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,10 +17,18 @@ export default class SortableQueueItem extends Component {
   handleHide() {
     this.setState({ active: false })
   }
+
+  onClickPlay() {
+    console.log(this.props);
+    console.log('Play!');
+  }
+
+  onClickRemove() {
+    console.log('Remove.');
+  }
   
   
   render() {
-    console.log(this.props.video);
     var headerStyle = {
       color: "#fff",
       paddingBottom: 0,
@@ -36,8 +45,8 @@ export default class SortableQueueItem extends Component {
       <div style={dimDivStyle}>
         <p style={headerStyle}>{this.props.video.title}</p>
         
-        <Button className="red mini circular icon"><Icon name="remove"/></Button>
-        <Button className="green mini circular icon"><Icon name="play"/></Button>
+        <Button className="red mini circular icon" onClick={this.onClickRemove.bind(this)}><Icon name="remove"/></Button>
+        <Button className="green mini circular icon" onClick={this.onClickPlay.bind(this)}><Icon name="play"/></Button>
       </div>
     )
 
@@ -53,3 +62,10 @@ export default class SortableQueueItem extends Component {
     )
   }
 }
+
+
+const mapStateToProps = (state, ownProps) => ({
+  queue: state[`queue${ownProps.direction}`]
+});
+
+export default connect(mapStateToProps)(SortableQueueItem);

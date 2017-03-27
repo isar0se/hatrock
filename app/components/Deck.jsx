@@ -18,7 +18,7 @@ export const Deck = props => {
       direction={props.direction}
     />
     <div style={queueStyles}>
-    <SortableQueue direction={props.direction} />
+      <SortableQueue direction={props.direction} />
     </div>
   </Container>
 )}
