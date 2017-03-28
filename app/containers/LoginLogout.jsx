@@ -8,6 +8,7 @@ import axios from 'axios'
 import {loadYoutubePlaylist} from 'APP/app/reducers/queue'
 import {fetchAllSetsFromDb} from '../reducers/sets'
 import FetchSetModal from 'APP/app/components/FetchSetModal'
+import SaveSetModal from 'APP/app/components/SaveSetModal'
 
 class LoginLogout extends Component {
   constructor(props) {
@@ -22,7 +23,9 @@ class LoginLogout extends Component {
     return (
       <Dropdown text={`Hello ${user.name || user.email}!`} className='link item'>
         <Dropdown.Menu>
-          <Dropdown.Item
+          <SaveSetModal/>
+          <FetchSetModal/>
+        <Dropdown.Item
             onClick={()=>{
               let accessToken;
               axios.get(`/api/auth/users/${this.props.user.id}`)
@@ -40,9 +43,6 @@ class LoginLogout extends Component {
                 }).catch(console.error)
             }}>Load Youtube Playlists
           </Dropdown.Item>
-
-            <FetchSetModal/>
-
         </Dropdown.Menu>
       </Dropdown>
     )

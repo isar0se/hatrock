@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {saveSetToDb} from '../reducers/set'
 import localStore from 'store'
-import { Form, Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Dropdown, Form, Button, Header, Icon, Modal } from 'semantic-ui-react'
 
 class SaveSetModal extends Component {
 	constructor(props) {
@@ -47,11 +47,10 @@ class SaveSetModal extends Component {
 
 	render() {
 		return (
-      <Modal trigger={<Button basic inverted color={'red'} onClick={this.handleOpen}>Save Set</Button>}
+      <Modal trigger={<Dropdown.Item basic inverted color={'red'} onClick={this.handleOpen}>Save Set</Dropdown.Item>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        basic size='small'
-        closeIcon='close'>
+        basic size='small'>
         <Modal.Actions>
   			<div>
   				<Form inverted onSubmit={this.handleSubmit}>
