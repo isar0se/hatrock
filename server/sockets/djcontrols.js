@@ -13,5 +13,9 @@ module.exports = function(io) {
         djSocket.broadcast.emit('skipVideo', direction)
       })
 
+      djSocket.on('playBothPressed', (playing) => {
+        djSocket.broadcast.emit('playBothVideos', playing)
+      })
+
     })
 }

@@ -41,6 +41,10 @@ class Player extends Component {
     })
 
     /*socket listeners for dj video controls*/
+    socket.on('playBothVideos', (playing) => {
+      playing === 0 ? event.target.pauseVideo() : event.target.playVideo()
+    })
+
     socket.on('skipVideo', (direction) => {
       if(direction === Direction){
         this.handleVideoEnd();
@@ -48,7 +52,6 @@ class Player extends Component {
     })
 
     socket.on('updatePlaybackRate', (newRate) => {
-      console.log("Changing the playback rate", newRate)
       event.target.setPlaybackRate(newRate)
     })
 

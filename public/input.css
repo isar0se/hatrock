@@ -87,6 +87,10 @@ h2{
 
 .sliders{
   width: 500px;
+  text-align:center;
+}
+.sliders button{
+  margin-bottom:10px;
 }
 
 input[type=range]
