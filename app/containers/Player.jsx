@@ -42,7 +42,7 @@ class Player extends Component {
 
     /*socket listeners for dj video controls*/
     socket.on('skipVideo', (direction) => {
-      if(direction === Direction || direction === "both"){
+      if(direction === Direction){
         this.handleVideoEnd();
       }
     })
@@ -91,12 +91,10 @@ class Player extends Component {
     let Direction= this.props.direction
 
     if(Direction === "Right"){
-      console.log("rightttt", this.state[`video${Direction}`])
       if (newVol <= 100) {
         this.state[`video${Direction}`].setVolume(newVol)
       }
     } else {
-      console.log("leftttt", this.state[`video${Direction}`])
       if (newVol > 100) {
         this.state[`video${Direction}`].setVolume(200-newVol)
       }else if(newVol === 100){

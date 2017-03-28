@@ -170,7 +170,7 @@ input[type=range]
 
 #p5parent{
 
-  opacity:.5;
+  opacity:1;
   position: absolute;
   top:0;
   left:0;
@@ -178,7 +178,7 @@ input[type=range]
 
 #p6parent{
 
-  opacity:.5;
+  opacity:1;
   position: absolute;
   top:0;
   left:0;
@@ -186,7 +186,7 @@ input[type=range]
 
 #p7parent{
 
-  opacity:.9;
+  opacity:1;
   position: absolute;
   top:0;
   left:0;

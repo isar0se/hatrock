@@ -62,6 +62,12 @@ class OutputPlayer extends Component {
       })
     })
 
+    socket.on('skipVideo', (direction) => {
+      if(direction === Direction){
+        this.handleVideoEnd();
+      }
+    })
+
 
   }
 
