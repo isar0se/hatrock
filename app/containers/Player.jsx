@@ -21,6 +21,7 @@ class Player extends Component {
     this.handleVideoPause = this.handleVideoPause.bind(this)
     this.handlePlaybackRateChange = this.handlePlaybackRateChange.bind(this)
     this.handleVideoEnd = this.handleVideoEnd.bind(this)
+    this.handleVolumeChange=this.handleVolumeChange.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +32,8 @@ class Player extends Component {
     let Direction = this.props.direction,
       cueTime = event.target.getCurrentTime(),
       videoToEmit = this.props.queue.length ? this.props.queue[0].id.videoId : ''
+
+      this.setState({[`video${Direction}`]: event.target})
 
 
     socket.on('outputReadyForPlayerVideos', () => {
@@ -47,6 +50,11 @@ class Player extends Component {
     socket.on('updatePlaybackRate', (newRate) => {
       console.log("Changing the playback rate", newRate)
       event.target.setPlaybackRate(newRate)
+    })
+
+    socket.on('changeVideosVolume', (newVol) => {
+      console.log("Changing the volume", newVol)
+      this.handleVolumeChange(newVol, event.target);
     })
 
     setTimeout(() => {
@@ -77,6 +85,25 @@ class Player extends Component {
     // console.log(newRate)
 
     socket.emit(`changingVideo${Direction}PlaybackRate`, newRate)
+  }
+
+  handleVolumeChange(newVol, video){
+    let Direction= this.props.direction
+
+    if(Direction === "Right"){
+      console.log("rightttt", this.state[`video${Direction}`])
+      if (newVol <= 100) {
+        this.state[`video${Direction}`].setVolume(newVol)
+      }
+    } else {
+      console.log("leftttt", this.state[`video${Direction}`])
+      if (newVol > 100) {
+        this.state[`video${Direction}`].setVolume(200-newVol)
+      }else if(newVol === 100){
+        this.state[`video${Direction}`].setVolume(100)
+      }
+    }
+
   }
 
   handleVideoEnd() {

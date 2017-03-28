@@ -13,7 +13,7 @@ export default class ControllerVid extends Component {
   }
 
   handleVolumeSlider(event){
-
+    socket.emit('changeVolume', event.target.value*2);
   }
 
   handleOpacitySlider(event){
