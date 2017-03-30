@@ -11,7 +11,7 @@ export default props => {
   }) : null
   return (
     <div className="emojiMobile">
-      <h1>How are you feeling?</h1>
+      <h1>Click Your Favorite Emojis</h1>
       <div className="buttonsContainer">
         {emojiButtons}
       </div>
