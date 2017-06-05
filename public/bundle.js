@@ -46463,6 +46463,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _utils = __webpack_require__(549);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46470,6 +46472,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // node modules
+
+
+// local files
 
 
 var socket = io(window.location.origin);
@@ -46483,7 +46488,7 @@ var TapEffect = function (_Component) {
     var _this = _possibleConstructorReturn(this, (TapEffect.__proto__ || Object.getPrototypeOf(TapEffect)).call(this));
 
     _this.state = {
-      taps: 0
+      taps: []
     };
     return _this;
   }
@@ -46493,18 +46498,37 @@ var TapEffect = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      // store taps as an array of Date.now()'s
+      // .25 speed:   < 1 tap / second
+      // .5 speed:    1 tap / second
+      // .75 speed:   1.5 taps / second
+      // 1 speed:     2 taps / second
+      // 1.25 speed:  3 taps / second
+      // 1.5 speed:   4 taps / second
+      // 2 speed:     > 4 taps / second
+
+
       socket.on('updateTapValue', function () {
-        _this2.setState({ taps: _this2.state.taps += 1 });
-        if (_this2.state.taps === 25) {
+        _this2.setState({
+          taps: (0, _utils.lastTwoSecondsOfTaps)(_this2.state.taps.concat(Date.now()))
+        });
+
+        var tapesInTwoSeconds = _this2.state.taps.length;
+
+        if (1 < tapesInTwoSeconds < 2) {
+          socket.emit('changePlaybackRate', 0.25);
+        } else if (tapesInTwoSeconds < 3) {
+          socket.emit('changePlaybackRate', 0.5);
+        } else if (tapesInTwoSeconds < 4) {
+          socket.emit('changePlaybackRate', 0.75);
+        } else if (tapesInTwoSeconds < 5) {
+          socket.emit('changePlaybackRate', 1.0);
+        } else if (tapesInTwoSeconds < 6) {
           socket.emit('changePlaybackRate', 1.25);
-        }
-
-        if (_this2.state.taps === 50) {
+        } else if (tapesInTwoSeconds < 8) {
           socket.emit('changePlaybackRate', 1.5);
-        }
-
-        if (_this2.state.taps === 100) {
-          socket.emit('changePlaybackRate', 2);
+        } else if (tapesInTwoSeconds >= 8) {
+          socket.emit('changePlaybackRate', 2.0);
         }
 
         console.log("updating tap value!", _this2.state.taps);
@@ -47155,6 +47179,12 @@ var concatQueuesToSet = exports.concatQueuesToSet = function concatQueuesToSet(s
   }
 
   return setCopy;
+};
+
+var lastTwoSecondsOfTaps = exports.lastTwoSecondsOfTaps = function lastTwoSecondsOfTaps(tapsArray) {
+  return tapsArray.filter(function (tapTime) {
+    return Date.now() - tapTime <= 2000;
+  });
 };
 
 /***/ }),

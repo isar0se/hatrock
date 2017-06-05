@@ -24,3 +24,7 @@ export const concatQueuesToSet = (setArray, queueLeft, queueRight) => {
   
   return setCopy
 }
+
+export const lastTwoSecondsOfTaps = tapsArray => (
+  tapsArray.filter(tapTime => Date.now() - tapTime <= 2000) 
+)
